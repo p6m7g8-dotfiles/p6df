@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.2](https://github.com/p6m7g8/p6ctl/compare/v0.0.1...v0.0.2) (2021-04-05)
+
+
+### Chores
+
+* **cicd:** drops Makefile ([#3](https://github.com/p6m7g8/p6ctl/issues/3)) ([040e62c](https://github.com/p6m7g8/p6ctl/commit/040e62c52f0d83ae516ed3c34fa018aa2cd6f386))
+
 ### [0.0.1](https://github.com/p6m7g8/p6ctl/compare/v1.0.1...v0.0.1) (2021-04-05)
 
 
