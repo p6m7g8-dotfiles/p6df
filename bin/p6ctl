@@ -1,18 +1,18 @@
-#!/bin/sh
-
-# XXX: the above is /bin/sh not /bin/bash or /usr/bin/env bash because
-# XXX: You don't know what container will have what until you add it
-# XXX: someone might not want `alpine`
-
 # shellcheck shell=bash
 
 ######################################################################
 #<
 #
-# Function: p6_usage()
+# Function: p6_usage(..., flag_debug, cmd, ...)
 #
-#  Depends:	 p6_cmd p6_main p6_msg
-#  Environment:	 EOF
+#  Args:
+#	... -
+#	flag_debug -
+#	cmd -
+#	... -
+#
+#  Depends:	 p6_cmd p6_msg p6_usage
+#  Environment:	 EOF LC_ALL OPTIND
 #>
 #/ Synopsis
 #/    bin/p6ctl [-D|-d] [cmd]
@@ -34,25 +34,16 @@ Options:
 
 Cmds:
   help
+  build
   docker_build
+  release
 EOF
 
   exit "$rc"
 }
 
-######################################################################
-#<
-#
-# Function: p6_main()
-#
-#  Depends:	 p6_cmd p6_msg p6_usage
-#  Environment:	 LC_ALL OPTIND
-#>
-#/ Synopsis
-#/    The entry point for bin/p6ctl
-#/
-######################################################################
-p6_main() {
+p6main() {
+  shift 0
 
   # sanitize env
   LC_ALL=C
@@ -86,6 +77,7 @@ p6_main() {
 
   # setup -x based on flag_debug
   [ ${flag_debug} = 1 ] && set -x
+
   # exit if any cli errors w/ >0 return code
   # the commands can still disable locally if needed
   set -e
@@ -93,6 +85,8 @@ p6_main() {
   p6_cmd_"${cmd}" "$@"
   p6_msg_success "$cmd"
   set +e
+
+  # stop debugging if it was enabled
   [ ${flag_debug} = 1 ] && set +x
 
   return 0
@@ -103,8 +97,11 @@ p6_main() {
 #
 # Function: p6_cmd_release()
 #
-#  Depends:	 p6_cicd p6_cmd
+#  Depends:	 p6_cmd
 #>
+#/ Synopsis
+#/    The entry point for bin/p6ctl
+#/
 ######################################################################
 p6_cmd_release() {
 
@@ -125,7 +122,7 @@ p6_cmd_release() {
 #  Args:
 #	OPTIONAL dockerfile - [Dockerfile]
 #
-#  Depends:	 p6_bootstrap p6_cmd
+#  Depends:	 p6_cmd p6_diagnostics
 #>
 ######################################################################
 p6_cmd_build() {
@@ -139,7 +136,7 @@ p6_cmd_build() {
 #
 # Function: p6_cmd_docker_build()
 #
-#  Depends:	 p6_bootstrap p6_cicd p6_diagnostics p6_msg
+#  Depends:	 p6_diagnostics p6_main
 #  Environment:	 TERM
 #>
 ######################################################################
@@ -158,7 +155,7 @@ p6_cmd_docker_build() {
 #
 # Function: p6_diagnostics()
 #
-#  Depends:	 p6_die p6_msg
+#  Depends:	 p6_main p6_msg
 #  Environment:	 GIT
 #>
 #/ Synopsis
@@ -183,12 +180,9 @@ p6_diagnostics() {
 ######################################################################
 #<
 #
-# Function: p6_msg(msg)
+# Function: p6_msg()
 #
-#  Args:
-#	msg -
-#
-#  Depends:	 p6_die p6_echo p6_error p6_msg
+#  Depends:	 p6_main p6_msg
 #>
 ######################################################################
 p6_msg() {
@@ -200,7 +194,7 @@ p6_msg() {
 #
 # Function: p6_msg_success()
 #
-#  Depends:	 p6_main p6_msg
+#  Depends:	 p6_msg
 #>
 #/ Synopsis
 #/  Outputs [CHECK] followed by message
@@ -216,7 +210,6 @@ p6_msg_success() {
 #
 # Function: p6_msg_fail()
 #
-#  Depends:	 p6_main
 #>
 #/ Synopsis
 #/  Outputs [FAIL] followed by message
@@ -227,14 +220,4 @@ p6_msg_fail() {
   echo "❌: $*"
 }
 
-######################################################################
-#<
-#
-# Function: p6_main()
-#
-#>
-#/ Synopsis
-#/   Begin
-#/
-######################################################################
-p6_main "$@"
+p6main "$@"
