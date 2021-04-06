@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/p6m7g8/p6ctl/compare/v0.0.4...v0.0.5) (2021-04-06)
+
+
+### Chores
+
+* run tests ([#5](https://github.com/p6m7g8/p6ctl/issues/5)) ([1ba0b61](https://github.com/p6m7g8/p6ctl/commit/1ba0b61c931fb6a6ac3918ed78137f2060d0fbb7))
+
 ### [0.0.4](https://github.com/p6m7g8/p6ctl/compare/v0.0.3...v0.0.4) (2021-04-06)
 
 
