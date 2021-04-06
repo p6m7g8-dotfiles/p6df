@@ -36,6 +36,7 @@ Cmds:
   help
   build
   docker_build
+  docker_test
   release
 EOF
 
@@ -70,6 +71,7 @@ p6main() {
   case $cmd in
   help) p6_usage ;;
   docker_build) ;;
+  docker_test) ;;
   build) ;;
   release) ;;
   *) p6_usage 1 "invalid cmd" ;;
@@ -146,8 +148,12 @@ p6_cmd_docker_build() {
 
   TERM=xterm-256color
   export TERM
+}
 
-  p6_diagnostics
+p6_cmd_docker_test() {
+
+  . lib/_bootstrap.sh
+  p6_bootstrap "." "github"
 }
 
 ######################################################################
