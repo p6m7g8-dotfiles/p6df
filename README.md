@@ -42,16 +42,9 @@
 
 ### p6ctl:
 
-#### p6ctl/bin/p6ctl:
+#### p6ctl/init.zsh:
 
-- p6_cmd_build([dockerfile=Dockerfile])
-- p6_cmd_docker_build()
-- p6_cmd_release()
-- p6_diagnostics()
-- p6_msg()
-- p6_msg_fail()
-- p6_msg_success()
-- p6_usage(..., flag_debug, cmd, ...)
+- p6df::modules::p6ctl::init()
 
 
 
