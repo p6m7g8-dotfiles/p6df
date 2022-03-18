@@ -34,6 +34,7 @@ Options:
 
 Cmds:
   help
+  install
   build
   docker_build
   docker_test
@@ -43,6 +44,16 @@ EOF
   exit "$rc"
 }
 
+######################################################################
+#<
+#
+# Function: p6main()
+#
+#>
+#/ Synopsis
+#/    The entry point for bin/p6ctl
+#/
+######################################################################
 p6main() {
   shift 0
 
@@ -70,6 +81,7 @@ p6main() {
   # security 101: only allow valid comamnds
   case $cmd in
   help) p6_usage ;;
+  install) ;;
   docker_build) ;;
   docker_test) ;;
   build) ;;
@@ -97,23 +109,50 @@ p6main() {
 ######################################################################
 #<
 #
-# Function: p6_cmd_release()
+# Function: p6_cmd_install(home=pgollucci/home)
 #
-#  Depends:	 p6_cmd
+#  Args:
+# OPTIONAL home - [pgollucci/home]
+#
+#  Depends:	 p6_cmd p6_diagnostics
 #>
-#/ Synopsis
-#/    The entry point for bin/p6ctl
-#/
 ######################################################################
-p6_cmd_release() {
+p6_cmd_install() {
+  local home="${1:-pgollucci/home}"
 
-  if git log --oneline -1 | grep -q "chore(release):"; then
-    exit 0
-  fi
+  local root
+  local gh_dir
+  gh_dir="$HOME/src/github.com/p6"
+  root="$gh_dir"
 
-  npx standard-version
+  # Hier
+  mkdir -p "$root"
 
-  git push --follow-tags origin master
+  # Clone
+  local p6_org
+  p6_org="p6m7g8"
+  local repos="$p6_org/p6df-core $p6_org/p6ctl $home"
+  local repo
+  for repo in $(echo "$repos"); do
+    gh repo clone "$repo" "$root/$repo"
+  done
+
+  # Connect
+  (
+    cd ~
+
+    # connect p6dfz to zsh init files
+    rm -f .zlogin .zlogout .zprofile .zshrc .zshenv
+    ln -fs "$gh_dir/$p6_org"/p6df-core/conf/zshenv-xdg .zshenv
+    ln -fs "$gh_dir/$p6_org"/p6df-core/conf/zshrc .zshrc
+
+    # connect "my" config
+    ln -fs "$gh_dir/$home"/.zsh-me .
+  )
+
+  # Reload
+  echo "reloading...."
+  echo exec "$SHELL" -li
 }
 
 ######################################################################
@@ -150,6 +189,13 @@ p6_cmd_docker_build() {
   export TERM
 }
 
+######################################################################
+#<
+#
+# Function: p6_cmd_docker_test()
+#
+#>
+######################################################################
 p6_cmd_docker_test() {
 
   . lib/_bootstrap.sh
