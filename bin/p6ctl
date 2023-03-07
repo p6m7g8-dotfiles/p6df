@@ -134,14 +134,14 @@ p6_cmd_install() {
   local repos="$p6_org/p6df-core $p6_org/p6ctl $home"
   local repo
   for repo in $(echo "$repos"); do
-    gh repo clone "$repo" "$root/$repo"
+    git clone https://github.com/"$repo" "$root/$repo"
   done
 
   # Connect
   (
     cd ~
 
-    # connect p6dfz to zsh init files
+    # connect p6df-core init files
     rm -f .zlogin .zlogout .zprofile .zshrc .zshenv
     ln -fs "$gh_dir/$p6_org"/p6df-core/conf/zshenv-xdg .zshenv
     ln -fs "$gh_dir/$p6_org"/p6df-core/conf/zshrc .zshrc
