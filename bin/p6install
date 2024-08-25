@@ -65,12 +65,16 @@ p6main() {
   done
   shift $((OPTIND - 1))
 
-  local cmd="$1"
-  shift 1
+  local cmd
+  if [ $# -gt 0 ]; then
+    cmd="$1"
+    shift 1
+  fi
 
   # security 101: only allow valid comamnds
   case $cmd in
   help) p6_usage ;;
+  install) cmd=install ;;
   "") ;;
   *) p6_usage 1 "invalid cmd" ;;
   esac
@@ -80,7 +84,6 @@ p6main() {
 
   # exit if any cli errors with > 0 return code
   set -e
-  cmd="install"
   echo "=============> $cmd"
   p6_cmd_"${cmd}" "$@"
   echo "✅: $cmd"
@@ -104,7 +107,7 @@ p6main() {
 #>
 ######################################################################
 p6_cmd_install() {
-  local home="${1:-pgollucci/home}"
+  local home="${1:-${USER:-pgollucci}/home}"
 
   local root
   local gh_dir
@@ -118,7 +121,7 @@ p6_cmd_install() {
   # Clone
   local p6_org
   p6_org="p6m7g8-dotfiles"
-  local repos="$p6_org/p6common $p6_org/p6df-core $p6_org/p6df-zsh $home"
+  local repos="$p6_org/p6common $p6_org/p6df-core $p6_org/p6df-zsh $home ${home}-private"
   local repo
   for repo in $(echo "$repos"); do
     echo "==> cloning $repo -> $root/$repo"
