@@ -118,7 +118,7 @@ p6_cmd_install() {
   # Clone
   local p6_org
   p6_org="p6m7g8-dotfiles"
-  local repos="$p6_org/p6common $p6_org/p6df-core $p6_org/p6df-zsh $p6_org/p6ctl $home"
+  local repos="$p6_org/p6common $p6_org/p6df-core $p6_org/p6df-zsh $home"
   local repo
   for repo in $(echo "$repos"); do
     echo "==> cloning $repo -> $root/$repo"
@@ -144,8 +144,13 @@ p6_cmd_install() {
     ln -fs "$gh_dir/$p6_org/p6common/conf/prod" "$gh_dir/$p6_org/p6common/lib/prod"
 
     # connect "my" config
-    ln -fs "$gh_dir/$home/.zsh-me" .
-    echo "ln -fs $gh_dir/$home/.zsh-me ."
+    if [ -e "$gh_dir/$home/.zsh-me" ]; then
+      echo "ln -fs $gh_dir/$home/.zsh-me ."
+      ln -fs "$gh_dir/$home/.zsh-me" .
+    else
+      echo "ln -fs $gh_dir/$p6_org/p6df-core/conf/zsh-me .zsh-me"
+      ln -fs "$gh_dir/$p6_org/p6df-core/conf/zsh-me" .zsh-me
+    fi
   )
 
   # Reload
