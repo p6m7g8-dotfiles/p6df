@@ -107,7 +107,7 @@ p6main() {
 #>
 ######################################################################
 p6_cmd_install() {
-  local home="${1:-${USER:-pgollucci}/home}"
+  local home="${1:-${USER}}/home"
 
   local root
   local gh_dir
