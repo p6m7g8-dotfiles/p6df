@@ -3,13 +3,12 @@
 ######################################################################
 #<
 #
-# Function: p6_usage(..., flag_debug, cmd, ...)
+# Function: p6_usage(..., flag_debug, ...)
 #
 #  Args:
-#	... -
+#	... - 
 #	flag_debug -
-#	cmd -
-#	... -
+#	... - 
 #
 #  Environment:	 EOF LC_ALL OPTIND
 #>
@@ -35,16 +34,6 @@ EOF
   exit "$rc"
 }
 
-######################################################################
-#<
-#
-# Function: p6main()
-#
-#>
-#/ Synopsis
-#/    The entry point for bin/p6install
-#/
-######################################################################
 p6main() {
   shift 0
 
@@ -98,13 +87,16 @@ p6main() {
 ######################################################################
 #<
 #
-# Function: p6_cmd_install(home=pgollucci/home)
+# Function: p6_cmd_install([home=${USER])
 #
 #  Args:
-# OPTIONAL home - [pgollucci/home]
+#	OPTIONAL home - [${USER]
 #
-#  Depends:	 p6_cmd p6_diagnostics
+#  Environment:	 HOME SHELL USER
 #>
+#/ Synopsis
+#/    The entry point for bin/p6install
+#/
 ######################################################################
 p6_cmd_install() {
   local home="${1:-${USER}}/home"

@@ -1,26 +1,39 @@
-# p6df
+# P6's POSIX.2: p6df
 
 ## Table of Contents
 
+## Badges
 
-### p6ctl
-- [p6ctl](#p6ctl)
-  - [Summary](#summary)
-  - [Author](#author)
-
-### Badges
+[![License](https://img.shields.io/badge/License-Apache%202.0-yellowgreen.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Mergify](https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges//p6df/&style=flat)](https://mergify.io)
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](<https://gitpod.io/#https://github.com//p6df>)
 
 ## Summary
 
-```bash
-curl https://raw.githubusercontent.com/p6m7g8-dotfiles/p6df/main/bin/p6install | zsh -s install pgollucci
+## Contributing
+
+- [How to Contribute](<https://github.com//.github/blob/main/CONTRIBUTING.md>)
+
+## Code of Conduct
+
+- [Code of Conduct](<https://github.com//.github/blob/main/CODE_OF_CONDUCT.md>)
+
+## Usage
+
+### Aliases
+
+### Functions
+
+## Hierarchy
+
+```text
+.
+├── bin
+│   └── p6install
+└── README.md
+
+2 directories, 2 files
 ```
-
-### Notes
-
-In the above example 1-liner, install and pgollucci are passed to `p6install` as arguments.
-`pgollucci` is the name of a github user or organization that contains a repository named `home`.
-Optionally it can also contain `home-private`
 
 ## Author
 
