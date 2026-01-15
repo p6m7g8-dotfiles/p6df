@@ -113,7 +113,7 @@ p6_cmd_install() {
   # Clone
   local p6_org
   p6_org="p6m7g8-dotfiles"
-  local repos="$p6_org/p6common $p6_org/p6df-core $p6_org/p6df-zsh $home ${home}-private"
+  local repos="$p6_org/p6common $p6_org/p6df-core $p6_org/p6df-zsh $home"
   local repo
   for repo in $(echo "$repos"); do
     echo "==> cloning $repo -> $root/$repo"
