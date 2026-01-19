@@ -3,14 +3,13 @@
 ######################################################################
 #<
 #
-# Function: p6_usage(..., flag_debug, ...)
+# Function: p6_usage(..., ..., ...)
 #
 #  Args:
 #	... - 
-#	flag_debug -
+#	... - 
 #	... - 
 #
-#  Environment:	 EOF LC_ALL OPTIND
 #>
 #/ Synopsis
 #/    bin/p6install [-D|-d] [cmd]
