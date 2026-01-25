@@ -3,12 +3,13 @@
 ######################################################################
 #<
 #
-# Function: p6_usage(..., ..., ...)
+# Function: p6_usage([rc=0], [msg=], ..., cmd)
 #
 #  Args:
+#	OPTIONAL rc - [0]
+#	OPTIONAL msg - []
 #	... - 
-#	... - 
-#	... - 
+#	cmd -
 #
 #>
 #/ Synopsis
