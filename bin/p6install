@@ -20,7 +20,7 @@ p6_usage() {
   local rc="${1:-0}"
   local msg="${2:-}"
 
-  if [ -n "$msg" ]; then
+  if p6_string_blank_NOT "$msg"; then
     echo "=======> $msg"
   fi
   cat <<EOF
